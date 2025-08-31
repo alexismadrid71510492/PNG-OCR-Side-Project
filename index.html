@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Image Client-Side OCR Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Multi-Image OCR Tool</h1>
+            <p class="privacy-notice">
+                <strong>🔒 Privacy First:</strong> All processing happens in your browser. 
+                No images or text are uploaded to any server.
+            </p>
+        </header>
+
+        <main>
+            <!-- File Input Section -->
+            <section class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <div class="upload-icon">📁</div>
+                        <h3>Drop PNG images here or click to select multiple</h3>
+                        <p>No limits on file size or number of images</p>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/png" multiple aria-label="Select PNG image files">
+                </div>
+
+                <!-- Language Selection -->
+                <div class="language-section">
+                    <label for="languageSelect">OCR Language:</label>
+                    <select id="languageSelect" aria-label="Select OCR language">
+                        <option value="eng">English</option>
+                        <option value="spa">Spanish</option>
+                        <option value="fra">French</option>
+                        <option value="deu">German</option>
+                        <option value="ita">Italian</option>
+                        <option value="por">Portuguese</option>
+                        <option value="rus">Russian</option>
+                        <option value="chi_sim">Chinese (Simplified)</option>
+                        <option value="jpn">Japanese</option>
+                        <option value="ara">Arabic</option>
+                    </select>
+                </div>
+
+                <!-- Processing Controls -->
+                <div class="controls-section" id="controlsSection" style="display: none;">
+                    <div class="processing-info">
+                        <span id="queueInfo">0 images selected</span>
+                    </div>
+                    <div class="control-buttons">
+                        <button id="startProcessing">🚀 Start Processing</button>
+                        <button id="clearQueue">🗑️ Clear All</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Image Queue Preview -->
+            <section class="queue-section" id="queueSection" style="display: none;">
+                <h3>Image Queue</h3>
+                <div class="image-grid" id="imageGrid"></div>
+            </section>
+
+            <!-- Overall Progress Section -->
+            <section class="overall-progress-section" id="overallProgressSection" style="display: none;">
+                <h3>Overall Progress</h3>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="overallProgressFill"></div>
+                    </div>
+                    <div class="progress-text" id="overallProgressText">Ready to start...</div>
+                </div>
+            </section>
+
+            <!-- Current Processing -->
+            <section class="current-progress-section" id="currentProgressSection" style="display: none;">
+                <h3>Current Image Processing</h3>
+                <div class="current-image-info" id="currentImageInfo"></div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="currentProgressFill"></div>
+                    </div>
+                    <div class="progress-text" id="currentProgressText">Initializing...</div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h3>Extraction Results</h3>
+                    <div class="results-summary" id="resultsSummary"></div>
+                </div>
+
+                <div class="results-actions">
+                    <button id="downloadAllButton" aria-label="Download all extracted text">
+                        💾 Download All as ZIP
+                    </button>
+                    <button id="copyAllButton" aria-label="Copy all text to clipboard">
+                        📋 Copy All Text
+                    </button>
+                    <button id="resetAllButton" aria-label="Reset and process new images">
+                        🔄 Process New Images
+                    </button>
+                </div>
+
+                <div class="results-list" id="resultsList"></div>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section" id="errorSection" style="display: none;">
+                <div class="error-content">
+                    <h3>⚠️ Errors Occurred</h3>
+                    <div id="errorList"></div>
+                    <button id="retryFailedButton">🔄 Retry Failed Images</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Built with <a href="https://tesseract.projectnaptha.com/" target="_blank">Tesseract.js</a> | 
+            Works offline after initial load</p>
+        </footer>
+    </div>
+
+    <!-- Compatibility Check -->
+    <div id="compatibilityWarning" class="compatibility-warning" style="display: none;">
+        <p>⚠️ This browser may not fully support all features. Please use a modern Chrome or Firefox browser for the best experience.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
